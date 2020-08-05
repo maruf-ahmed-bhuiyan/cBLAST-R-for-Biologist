@@ -1,0 +1,179 @@
+---
+title: "Day2-R for Biologist"
+author: "Maruf Ahmed Bhuiyan"
+date: "6/27/2020"
+output: pdf_document
+---
+
+#Matrix
+```{r}
+mat1 <- matrix(1:9, nrow = 3)
+mat1
+
+mat2 <- matrix(1:9, byrow = T, nrow = 3)
+mat2
+
+?matrix
+help(matrix)
+
+fiz <- c(60, 100, 20, 40)
+tamim <- c(40, 60, 100, 50)
+imrul <- c(56, 24, 6, 4)
+
+bd_team <- c(tamim, imrul, fiz)
+bd_team
+
+bd <- matrix(bd_team, byrow = T, nrow = 3)
+bd
+
+bd1 <- matrix(bd_team,
+              byrow = T,
+              nrow = 3,
+              ncol = 4)
+bd1
+```
+
+#Naming a matrix
+```{r}
+rownames(bd1) <- c("Tamim", "Imrul", "Fiz")
+bd1
+
+colnames(bd1) <- c("1st", "2nd", "3rd", "4th")
+bd1
+```
+
+#Summation of matrices
+```{r}
+rowSums(bd1)
+rowsum()
+
+colSums(bd1)
+
+total_run_player <- rowSums(bd1)
+total_run_player
+
+bd1 <- cbind(bd1, total_run_player)
+bd1
+?cbind
+
+total_run_perday <- colSums(bd1)
+total_run_perday
+
+rbind(bd1, total_run_perday)
+
+```
+
+#Adding matrices
+```{r}
+
+Sabbir <- c(40, 50, 100, 50)
+Mashrafee <- c(56, 24, 6, 4)
+bd_team <- c(Sabbir, Mashrafee)
+bd2 <- matrix(bd_team, nrow = 2, byrow = 2)
+bd2
+
+rownames(bd2) <- c("Sabbir", "Mashrafee")
+colnames(bd2) <- c("1st", "2nd", "3rd", "4th")
+bd2
+
+new_bd2 <- rbind (bd1, bd2)
+new_bd2
+
+new_bd2[2,2]
+new_bd2[,4]
+
+head(new_bd2,2)
+tail(new_bd2,2)
+
+```
+
+#Factor
+```{r}
+sex <- c("Male", "Female", "Male", "Female")
+factor_sex <- factor(sex)
+factor_sex
+
+######################## Nominal
+animal <- c("giraffe", "monkey", "monkey", "elephant")
+factor_animal <- factor(animal)
+factor_animal
+
+######################## Ordinal
+
+sick <- c("Nothing", "Something", "Lot", "Something", "Lot")
+factor_sick <- factor(sick,
+       order = TRUE,
+       levels = c("Nothing", "Something", "Lot"))
+factor_sick
+
+temp <- c("low", "medium", "medium", "low", "high")
+factor_temp <-
+  factor(temp,
+         ordered = TRUE,
+         levels = c("low", "medium", "high"))
+factor_temp
+
+summary(factor_sick)
+summary(factor_sex)
+summary(factor_animal)
+
+```
+
+# Data Frame
+```{r}
+data(mtcars)
+mtcars
+
+str(mtcars)
+
+data("iris")
+str(iris)
+
+name <- c("Tamim", "Imrul", "Sakib", "Fiz")
+avg <- c(50, 40, 60, 25)
+marital_stat <- c(T, T, T, F)
+six <- c(12, 4, 6, 2)
+
+bd <- data.frame(name, avg, marital_stat, six)
+bd
+
+bd[2,2]
+bd[,2]
+
+bd$six
+
+six_6 <- bd$six > 6
+bd$six[six_6]
+
+bd
+order(bd$six)
+ord <- order(bd$six)
+bd[ord]
+bd[ord,]
+
+sort(bd$six)
+
+plot(bd)
+
+```
+
+#List
+```{r}
+my_vec <- 1:10
+my_vec
+
+my_mat <- matrix(1:10, byrow = T, nrow = 5)
+my_mat
+
+my_df <- mtcars[1:10,]
+my_df
+
+my_list <- list(my_val, my_mat, my_df)
+my_list
+
+my_list[[1]]
+
+my_list[[3]][,1]
+```
+
+

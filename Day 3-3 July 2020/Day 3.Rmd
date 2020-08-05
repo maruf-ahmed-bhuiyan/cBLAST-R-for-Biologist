@@ -1,0 +1,129 @@
+---
+title: "Day 3"
+author: "Maruf Ahmed Bhuiyan"
+date: "7/3/2020"
+output: pdf_document
+---
+
+# if
+```{r}
+x <- -5
+if (x > 0){
+  print("x is a postive number")
+}
+```
+
+# else if
+```{r}
+x <- 5
+x <- 0
+x <- -5
+x <- "habib"
+is.character(x)
+
+if (x > 0){
+  print("x is a positive number")
+} else if (x < 0){
+  print("x is a negative number")
+} else if (class(x) == "character"){
+  print("please write a valid number")
+}
+```
+
+# calculation within if
+```{r}
+var1 <- 25
+var2 <- 35
+
+if (var1 + var2 > 100){
+  pirnt("value is greater than 100")
+} else if ((var1 + var2) > 75 & (var1 + var2) < 100){
+  print("value is less than 75 and greater than 65")
+} else {
+  print("does not meet criteria")
+}
+```
+
+# character
+```{r}
+name <- "Tamim"
+
+if (name == "tamim"){
+  print("Goods batsman")
+} else {
+  print("Please pick a good batsman")
+}
+```
+
+# For loop
+```{r}
+x <- 2015
+
+for (x in 2015:2020){
+  print(paste("Year:", x))
+}
+
+```
+
+```{r}
+fruit <- c("Mango", "Banana", "Orange", "Apple")
+
+for (x in fruit){
+  print(paste("Fruit is:",x))
+}
+```
+
+```{r}
+x <- c(1, 2, 4, 15, 25, 34, 4)
+
+for (y in x){
+  print(y)
+}
+
+```
+
+# For Loop 2
+```{r}
+number <- c(1, 2, 4, 15, 25, 34, 4)
+
+for (x in 1:length(number)){
+  print(number[x])
+}
+```
+
+# If within While
+```{r}
+speed <- 30
+
+while (speed > 10){
+  print("Slow down!!")
+  speed <- speed - 3
+  print(speed)
+}
+
+speed <- 40
+
+while (speed >10){
+  print(paste("Your current speed", speed))
+  if (speed > 20){
+    print ("slow down by 4 kmh")
+    speed <- speed - 4
+  } else {
+    print("slow down by 2 kmh")
+    speed <- speed -2
+  }
+}
+
+
+```
+
+#Bioconductor
+```{r}
+BiocManager::install("airway")
+library("airway")
+data("airway")
+
+head(airway)
+
+```
+

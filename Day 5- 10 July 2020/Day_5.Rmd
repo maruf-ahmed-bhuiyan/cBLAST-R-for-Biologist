@@ -1,0 +1,535 @@
+---
+title: "R for Biologists-Day_5"
+author: "Maruf Ahmed Bhuiyan"
+date: "7/10/2020"
+output:
+  html_document: 
+    toc: true
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Set working directory according to your choice.
+```{r}
+setwd("~/Desktop/cBALST_R/Day 5- 10 July 2020")
+```
+
+
+# 1.Create a variable “x” that has value 5. And another variable “y” that has value 3. Add them and store in z. Print z in the console.
+```{r}
+x <- 5
+y <- 3
+z <- x + y
+z
+```
+
+# 2.Create a vector called “tamim” with runs in five matches. The runs are 40, 50, 100, 20, 10, 35, 40. Get the average run of tamin in the tournament
+
+## There are values for seven matches.
+
+```{r}
+tamim <- c(40, 50, 100, 20, 10, 35, 40)
+tamim_average <- sum(tamim) / 7
+tamim_average
+
+# Alternative approach
+tamim_average <- sum(tamim) / length(tamim)
+tamim_average
+
+# We can also calculate the mean which is the arithmetic average.
+mean(tamim)
+```
+
+# 3.Create a boxplot of variable tamim. It should like like the following. Which one is the outlier here?
+
+```{r}
+boxplot(tamim, main = " Scores of Tamim", ylab = "Runs scored", col = "cyan3")
+
+# Outlier is any value that is 1.5 times the IQR value above or 
+# below the Q3 or Q1 correspondingly. The score 100 is the outlier here.
+
+print(paste("The outlier is:", 100))
+```
+
+# 4.Create matrix with number 1 to 100. The matrix should contain 4 columns and 25 rows.
+```{r}
+mat <- matrix(1:100, nrow = 25, ncol = 4)
+mat
+```
+
+# 5.Give the 4 column names. “one, two, three, four”. It should look like following
+```{r}
+colnames(mat) <- c("one", "two", "three", "four")
+mat
+
+# Alternate approach
+
+colname <- c("one", "two", "three", "four")
+colnames(mat) <- colname
+mat
+```
+
+# 6.Create a data frame that looks like following.
+
+```{r}
+Name <- c("William", "Emma", "Sofia", "Markus", "Edward", "Thomas")
+Region <- c("East", "North", "East", "South", "West", "West")
+Sales <- c(50000, 52000, 90000, 34000, 42000, 72000)
+Expenses <- c(42000, 43000, 50000, 44000, 38000, 39000)
+
+df <- data.frame(Name, Region, Sales, Expenses)
+df
+```
+
+# 7.Create the following list:
+```{r}
+mother <- "Veronique"
+father <- "Michel"
+sisters <- c("Alicia", "Monica")
+sisters_age <- c(12, 22)
+
+lst <- list(mother, father, sisters, sisters_age)
+lst
+
+names(lst) <- c("mother", "father", "sisters", "sisters_age")
+lst
+```
+
+# 8.Write an if else condition where it says, if x is greater than 0 then print positive, if less than 0 print negative and if x is 0 than print zero and if anything else print please type a new number. Check what the value shows if x <- 5 and x <- 0
+
+```{r}
+x <- 5
+
+if (x > 0){
+  print("Positive")
+} else if (x < 0){
+  print("Negative")
+} else if (x == 0){
+  print("Zero")
+} else 
+  print("Please, type a new number")
+
+  
+x <- 0
+
+if (x > 0){
+  print("Positive")
+} else if (x < 0){
+  print("Negative")
+} else if (x == 0){
+  print("Zero")
+} else 
+  print("Please, type a new number")
+
+```
+
+# 9.Create the following data frame:
+
+```{r}
+DF1 <- data.frame(c1 = c(1,5,14,23,54), 
+                  c2 = c(9,15,85,3,42), 
+                  c3 = c(9,7,42,87,16))
+DF1
+
+mat1 <- as.matrix(DF1)
+mat1
+```
+
+# 10.Use for loop to get the following output
+
+```{r}
+digits <- c(1:10)
+
+for (i in digits){
+  print(paste("the year is,", i))
+}
+
+```
+
+# 11.Install Bioconductor in R. install Deseq2 package in R. Check the following 
+https://www.bioconductor.org/packages/release/bioc/html/DESeq2.html
+
+```{r}
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install(version = "3.10")
+
+# install Deseq2
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+# BiocManager::install("DESeq2")
+
+```
+
+# 12.Load the inbuild “mtcars” data frame and store it as “cars”. If you View the cars you can see that the first column is “mpg” and fourth column is  “hp”. Swap this column such that 1st column is “hp” and the fourth column is “mpg”.
+
+```{r}
+data("mtcars")
+cars <- mtcars
+str(cars)
+
+# View(cars)
+
+library(dplyr, quietly = TRUE)
+cars %>% select("hp", "cyl", "disp",
+                "mpg", "drat", "wt", 
+                "qsec", "vs", "am", 
+                "gear", "carb")
+
+```
+
+# 13.Make a scatter plot “mpg” vs “hp” and color it based on “gear”. What is the difference when you use factor and when you don’t
+
+```{r}
+library(ggplot2)
+
+head(cars)
+
+# Without factorization
+ggplot(data = cars, aes(x = mpg , y = hp, colour= gear)) + 
+          geom_point()
+
+# With factorization
+ggplot(data = cars, aes(x = mpg , y = hp, colour= factor(gear))) + 
+          geom_point()
+
+# We can make it more easy to understand using the shape argument
+ggplot(data = cars, aes(x = mpg , y = hp, 
+                        colour= factor(gear), 
+                        shape = factor(gear))) + 
+          geom_point(size = 1.5)
+```
+
+# 14.Load the file “house.csv” in R. you can see that the “aircond” column has 0 or 1. Where 0 means no facility of air-condition and 1 means containing facility of air-condition.
+
+```{r}
+# Location of houses.csv file
+
+data <- read.csv("houses.csv")
+str(data)
+```
+
+# 15.Make a new column titled “New_created_column” which contains “yes” or “no” value which is consistent with 0 and 1 in “aircond” column.
+
+```{r}
+data <- data %>% mutate( "New_created_column" = 
+                           ifelse(air_cond ==0, "No", 
+                                  ifelse(air_cond == 1, "Yes", NA)))
+
+head(data %>% select(air_cond, New_created_column))
+```
+
+# 16.Make a boxplot with x axis as room number and y axis as price and compare how difference in price it makes if you have air condition facility or not. Use new_created_column.
+
+```{r}
+ggplot(data = data, aes(x = factor(rooms), 
+                        y = price, 
+                        colour = factor(New_created_column))) +
+  geom_boxplot()
+```
+
+# 17.Create a frequency polygon with facet_grid based on “New_created_column”
+
+```{r}
+ggplot(data = data, aes(x = price, 
+                             col = factor(New_created_column)))+ 
+  geom_freqpoly(bins = 100) +
+  facet_grid( ~ New_created_column)
+
+```
+
+# 18.Say you have three genes EGFR, FOX1, TF1. You have calculated that in three cell type “cell1, cell2, cell3”. You want to create a matrix where each gene will have a value for each cell type
+
+```{r}
+cell_1 <- c(10, 100, 12)
+cell_2 <- c(12, 12, 2)
+cell_3 <- c(15, 20, 3)
+
+data2 <- data.frame(cell_1, cell_2, cell_3)
+data2 <- as.matrix(data2)
+rownames(data2) <- c("EGFR", "TF_1", "FOX_1")
+data2
+```
+
+# 19.Calculate the mean of each row and add it as the fourth column and calculate the row sum and add it as the fifth column
+
+```{r}
+Mean <- round(rowMeans(data2),2)
+
+Total <- rowSums(data2)
+
+cbind(data2, Mean, Total)
+
+```
+
+# 20.Say you have collected some samples from 5 person. You have asked them if they believe in aliens. The response was as follows :
+
+```{r}
+responses <- factor(c("Agree", "Agree", "Strongly Agree", "Disagree", "Agree"))
+
+levels(responses) <- c("Strongly Agree",  "Agree", "Disagree")
+responses
+```
+
+# 21.Create the following data frame, 
+
+```{r}
+Age <- as.numeric(c(25, 31, 23, 52, 76, 49, 26))
+Height <- as.numeric(c(177, 163, 190, 179, 163, 183, 164))
+Weight <- as.numeric(c(57, 69, 83, 75, 70, 83, 53))
+Sex <- factor(c("F", "F", "M", "M", "F", "M", "F"))
+
+levels(Sex) <- c("F", "M")
+
+df <- data.frame(Age, Height, Weight, Sex)
+df
+
+rownames(df) <- c("Alex", "Lilly", "Mark", "Oliver", "Martha", "Lucas", "Caroline")
+df
+
+df_recoded <- df %>% mutate(Sex = recode(Sex, "F" = "M", "M" = "F"))
+rownames(df_recoded) <- c("Alex", "Lilly", "Mark", 
+                          "Oliver", "Martha", "Lucas", "Caroline")
+df_recoded
+
+```
+
+# 22.Create this data frame (make sure you import the variable Working as character and not factor).
+
+```{r}
+
+Working <- c("Yes", "No", "No", "Yes", "Yes", "No", "Yes")
+class(Working)
+
+df_working <- data.frame(Working, stringsAsFactors = F)
+rownames(df_working) <- c("Alex", "Lilly", "Mark", "Oliver", "Martha", "Lucas", "Caroline")
+
+
+df_new <- cbind(df, df_working)
+df_new
+
+
+nr <- nrow(df_new)
+nc <- ncol(df_new)
+
+print(paste("Rows:", nr, "Columns:", nc))
+
+lapply(df_new, class)
+```
+
+# 23.Write two string “hello” and “why am I doing this”. Add this two string together and separate by “,”
+
+```{r}
+string1 <- "Hello"
+string2 <- "why am I doing this"
+str3 <- "because Sohan vai told me to do so !!"
+
+print(paste(string1, string2, str3, sep = ", "))
+```
+
+# 24.If name_list <- list(a = 1:200, b = “this is a string”, c = “hello”). You will write a code that will add 1 to each element of the first vector of the new list. Also, add a new item z = “newItem” to the list name_list
+
+```{r}
+name_list <- list(a = 1:200, b = "this is a string", c = "hello")
+name_list
+
+name_list[["a"]]
+
+add_vector <- rep.int(x = 1, 200)
+add_vector
+
+a <- name_list[["a"]] + add_vector
+a
+
+name_list <- list(a = a, b = "this is a string", 
+                  c = "hello", z = "newItem")
+name_list
+```
+
+# 25.Download the small_counts.txt from the following location
+
+```{r}
+# file <- "https://figshare.com/s/1d788fd384d33e913a2a"
+# dest <- paste(getwd(), "small_counts.txt", sep = "/")
+# dest
+
+# if (file.exists(dest) == !T) {
+#  download.file(file, dest, method = "wget", mode = "w")
+# } else {
+#  print("File is already downloaded !")
+# }
+
+### This is a link to the folder. We can download it manually 
+## by going to the browser and opening the folder and downloading 
+## the file manually.
+
+### Or we can download the file from R by the direct link to the file.
+"https://ndownloader.figshare.com/files/6005547?private_link=1d788fd384d33e913a2a"
+
+
+file <- "https://ndownloader.figshare.com/files/6005547?private_link=1d788fd384d33e913a2a"
+dest <- paste(getwd(), "small_counts.txt", sep = "/")
+dest
+
+if (file.exists(dest) == !T) {
+  download.file(file, dest, method = "auto")
+} else {
+  print("File is already downloaded !")
+}
+```
+
+# 26.Read the file in R and save it as small_counts. View the file.
+
+```{r}
+small_counts <- read.table("small_counts.txt", header = TRUE)
+small_counts
+
+#View(small_counts)
+```
+
+# 27.Get the following output from the file
+
+```{r}
+small_counts[,1:2]
+```
+
+# 28.Get log of the small_count so that it looks like the following
+
+```{r}
+log(small_counts)
+```
+
+# 29.Download the “ResultsTable_small.txt” from the following location "https://figshare.com/s/1d788fd384d33e913a2a"
+
+```{r}
+### This is a link to the folder. We can download it manually 
+### by going to the browser and opening the folder and 
+### downloading the file manually.
+
+### Or we can download the file from R by the direct link to the file.
+# "https://ndownloader.figshare.com/files/6005550?private_link=1d788fd384d33e913a2a"
+
+file <- 
+  "https://ndownloader.figshare.com/files/6005550?private_link=1d788fd384d33e913a2a"
+dest <- paste(getwd(), "ResultsTable_small.txt", sep = "/")
+dest
+
+if (file.exists(dest) == !T) {
+  download.file(file, dest, method = "auto")
+} else {
+  print("File is already downloaded !")
+}
+```
+
+# 30.This is a file which contains the gene expression data. The Entrez id is the gene name. You can search Entrez id in google to get more information.Symbol is the gene name. And “logFC” value which means how much more a gene is expressed in treatment condition compared to control condition. Read the file in R and store it as "results".
+
+```{r}
+results <- read.table(dest, header = T)
+head(results)
+str(results)
+```
+
+# 31.Sort the file such thath the genes are orderd in highest to lowest value of “logFC”. 
+
+```{r}
+head(results[,1:3], 10)
+
+head(results[order(-results$logFC),],10)
+
+```
+
+# 32.See the following figure
+
+Type the above code in your console and check counts_matrix to see what does it create. What do you think “rpois” comment did here? And try to find what is the difference between paste and paste0. Always remember “google” is your friend.
+
+```{r}
+counts_matrix <- data.frame(cell_1 = rpois(10,10),
+                            cell_2 = rpois(10,10),
+                            cell_3 = rpois(10, 30))
+rownames(counts_matrix) <- paste0("gene_", 1:10)
+counts_matrix <- as.matrix(counts_matrix)
+counts_matrix
+
+## What do you think “rpois” comment did here? 
+## And try to find what is the difference between paste and paste0.
+
+## rpois generates a Poisson distribution with random deviates. 
+## Other similar terms are dpois (density), qpois(quantile), 
+## ppois (log distribution function)
+
+## The Poisson distribution is the discrete probability
+## distribution of the number of events occurring in a 
+## given time period, given the average number of times 
+## the event occurs over that time period.
+
+## The difference between paste() and paste0() is that 
+## the argument sep by default is " " (paste) and "" 
+## (paste0). paste0() is faster than paste() if our 
+## objective is concatenate strings without spaces 
+## because we don’t have to  specify the argument sep. 
+## For example...see the difference between these..
+
+paste0("gene_", 1:10)
+paste("gene_", 1:10)
+
+
+```
+
+# 33.Create a heatmap from the using the following file: Explain what was done in each line. Use “##” to comment on your code file in R
+Load the file “basketball.csv”. Make sure you change the read.csv location from the following code.
+
+
+The code will/might show you error!.copy the error and put it in google and see what is the suggestion from the internet. Try to understand and solve the problem. The end of the code will show something like the following:
+
+```{r}
+file.exists("basketball.csv")
+
+# importing the file
+nba <- read.csv("basketball.csv")
+
+# sorting the file accoring to PTS in increasing order
+nba <- nba[order(nba$PTS),]
+
+# Naming the rownames according to the Name column
+row.names(nba) <- nba$Name
+
+# Subsetting the data frame with all rows and 
+# 20 columns except the first one
+nba <- nba[,2:20]
+
+# Creating a matrix
+nba_matrix <- data.matrix(nba)
+
+# Creating a heatmap
+nba_heatmap <- heatmap(nba_matrix, Rowv = NA, 
+                       Colv = NA, 
+                       col = cm.colors(256),
+                       scale = "column",
+                       margins = c(5,10))
+
+# The code didn't show any error to me ! So, let's continue
+
+# I prefer the following color scheme better
+nba_heatmap <- heatmap(nba_matrix, Rowv = NA, 
+                       Colv = NA, 
+                       col = heat.colors(256),
+                       scale = "column",
+                       margins = c(5,10))
+
+# Blue is my favorite color. So, let's color it blue !!
+if (!require("RColorBrewer")) {
+install.packages("RColorBrewer")
+library(RColorBrewer)
+}
+  
+nba_heatmap <- heatmap(nba_matrix, Rowv = NA, 
+                       Colv = NA, 
+                       col = brewer.pal(9, "Blues"),
+                       scale = "column",
+                       margins = c(5,10))
+
+```
+

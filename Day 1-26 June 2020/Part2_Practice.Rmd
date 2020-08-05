@@ -1,0 +1,69 @@
+---
+title: "Part 2_Practice"
+author: "Maruf Ahmed Bhuiyan"
+date: "6/26/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Vectors
+```{r}
+x <- 5
+x <- c(5, 7, 12, 2143, 4)
+x
+
+y <- c ("hello", 6)
+class(y)
+
+nabil <- c("hello", "good morning")
+nabil
+
+boo <- c(T, F, T, F)
+boo
+
+tamim <- c(40, 50, 100, 40)
+imrul <- c(24, 50, 12, 50)
+
+tamim
+imrul
+
+match_num <- c("1st", "2nd", "3rd", "4th")
+match_num
+
+names(tamim) <- c("1st", "2nd", "3rd", "4th")
+tamim
+
+names(imrul) <- match_num
+imrul
+
+total_run_tamim <- sum(tamim)
+total_run_tamim
+
+total_run_imrul <- sum(imrul)
+total_run_imrul
+
+
+tamim > imrul
+tamim < imrul
+
+tamim[3]
+imrul[4]
+
+tamim[c(1, 2)]
+#tamim[1, 2]
+tamim[1:3]
+
+tamim
+
+num <- c(1:20)
+num
+
+select <- tamim > 50
+select
+
+tamim[select]
+```
+

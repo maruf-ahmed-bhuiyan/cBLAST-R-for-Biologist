@@ -1,0 +1,94 @@
+---
+title: "Day4"
+author: "Maruf Ahmed Bhuiyan"
+date: "7/4/2020"
+output: html_document
+---
+
+# Intro
+```{r}
+data <- read.csv("houses_new.csv")
+
+View(data)
+
+str(data)
+
+```
+
+# Iris data set
+```{r}
+data(iris)
+
+
+str(iris)
+
+# Scatter Plot
+plot(iris$Sepal.Length, iris$Petal.Length,
+    xlab = "Sepal Length",
+    ylab = "Petal Length",
+    main = "Sepal Length vs Petal Length",
+    col="cyan3", pch=16)
+
+# Histogram
+hist(iris$Sepal.Length, xlab ="Sepal Length", main = "Distribution", col = "red")
+
+#Boxplot
+boxplot(iris$Sepal.Width~iris$Sepal.Length)
+
+```
+
+#ggplot
+```{r}
+require(ggplot2)
+
+ggplot(iris, aes(Sepal.Length,Petal.Length, col= Species, shape = Species)) +
+  geom_point() +
+  theme_bw()
+
+```
+
+#Data:House
+```{r}
+house_new <- read.csv("houses_new.csv")
+
+str(house_new)
+
+#Histogram
+ggplot(data = house_new, aes(x = price)) +
+  geom_histogram(
+    bins = 50,
+    fill = "royalblue3",
+    col = "black")
+
+# Barplot
+ggplot(data = house_new, aes(x = waterfront2, fill = air_cond2)) +
+    geom_bar()
+
+
+ggplot(data = house_new, aes(x = waterfront2, fill = air_cond2)) +
+    geom_bar(position = "fill")
+
+# Frequency Polygon
+ggplot(data = house_new, aes(x = price, col = air_cond2)) + 
+  geom_freqpoly(bins=100)
+
+ggplot(data = house_new, aes(x= factor(house_new$rooms), y = house_new$price, fill =air_cond2)) +
+  geom_boxplot()
+
+# Smooth line
+ggplot(data = house_new, aes(x =living_area, y = price)) + 
+  geom_smooth()
+
+# Linear model
+ggplot(data = house_new, aes(x = living_area, y = price)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  facet_grid(~air_cond2)
+
+```
+
+# Heatmap
+```{r}
+
+```
+

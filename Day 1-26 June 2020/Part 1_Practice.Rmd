@@ -1,0 +1,55 @@
+---
+title: "R for Biologist-cBLAST"
+author: "Maruf Ahmed Bhuiyan"
+date: "26 June 2020"
+output:
+  pdf_document: default
+---
+```{r}
+2+2
+2*3
+3/2
+#Power
+2^6
+#Modulus
+7%%3
+```
+
+## Variables
+```{r}
+x = 2
+y <-3
+X <- 12
+Y <- 13
+
+x + y
+X + Y
+```
+
+## Data Type
+```{r}
+#Numeric/Integar
+x <- 1000
+class(x)
+
+#String/Character
+str <- 'Sohan'
+class(str)
+
+#Boolean/Logical
+z <- TRUE
+class(z)
+
+a <- "Maruf"
+b <- "Meem"
+
+#a+b
+
+aa <- "5"
+bb <- "8"
+
+#aa + bb
+class(aa)
+
+```
+
